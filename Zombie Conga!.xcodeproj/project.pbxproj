@@ -8,24 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		3ED30AC1262E26DA00B2F898 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED30AC0262E26DA00B2F898 /* AppDelegate.swift */; };
-		3ED30AC3262E26DA00B2F898 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ED30AC2262E26DA00B2F898 /* GameScene.sks */; };
-		3ED30AC5262E26DA00B2F898 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3ED30AC4262E26DA00B2F898 /* Actions.sks */; };
 		3ED30AC7262E26DA00B2F898 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED30AC6262E26DA00B2F898 /* GameScene.swift */; };
 		3ED30AC9262E26DA00B2F898 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED30AC8262E26DA00B2F898 /* GameViewController.swift */; };
 		3ED30ACC262E26DA00B2F898 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED30ACA262E26DA00B2F898 /* Main.storyboard */; };
 		3ED30ACE262E26E100B2F898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ED30ACD262E26E100B2F898 /* Assets.xcassets */; };
+		3ED30ADA262E273200B2F898 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED30AD9262E273100B2F898 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3ED30ABD262E26DA00B2F898 /* Zombie Conga!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zombie Conga!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED30AC0262E26DA00B2F898 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3ED30AC2262E26DA00B2F898 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		3ED30AC4262E26DA00B2F898 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		3ED30AC6262E26DA00B2F898 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		3ED30AC8262E26DA00B2F898 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		3ED30ACB262E26DA00B2F898 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3ED30ACD262E26E100B2F898 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED30ACF262E26E100B2F898 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3ED30AD9262E273100B2F898 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,13 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				3ED30AC0262E26DA00B2F898 /* AppDelegate.swift */,
-				3ED30AC2262E26DA00B2F898 /* GameScene.sks */,
-				3ED30AC4262E26DA00B2F898 /* Actions.sks */,
 				3ED30AC6262E26DA00B2F898 /* GameScene.swift */,
 				3ED30AC8262E26DA00B2F898 /* GameViewController.swift */,
 				3ED30ACA262E26DA00B2F898 /* Main.storyboard */,
 				3ED30ACD262E26E100B2F898 /* Assets.xcassets */,
 				3ED30ACF262E26E100B2F898 /* Info.plist */,
+				3ED30AD9262E273100B2F898 /* LaunchScreen.storyboard */,
 			);
 			path = "Zombie Conga!";
 			sourceTree = "<group>";
@@ -127,10 +124,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ED30ADA262E273200B2F898 /* LaunchScreen.storyboard in Resources */,
 				3ED30ACC262E26DA00B2F898 /* Main.storyboard in Resources */,
-				3ED30AC3262E26DA00B2F898 /* GameScene.sks in Resources */,
 				3ED30ACE262E26E100B2F898 /* Assets.xcassets in Resources */,
-				3ED30AC5262E26DA00B2F898 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
