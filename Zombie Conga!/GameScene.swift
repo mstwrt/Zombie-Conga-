@@ -10,6 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     let zombie = SKSpriteNode(imageNamed: "zombie1")
+    let zombieAnimation: SKAction
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
     let zombieMovePointsPerSec: CGFloat = 480.0
@@ -31,6 +32,7 @@ class GameScene: SKScene {
     private func moveZombieToward(location: CGPoint) {
         let offset = location - zombie.position
         let direction = offset.normalized()
+        startZombieAnimation()
         velocity = direction * zombieMovePointsPerSec
       }
     
@@ -84,17 +86,38 @@ class GameScene: SKScene {
         enemy.run(SKAction.sequence([actionMove, actionRemove]))
     }
     
+    func startZombieAnimation() {
+        if zombie.action(forKey: "animation") == nil {
+            zombie.run(SKAction.repeatForever(zombieAnimation), withKey: "animation")
+        }
+    }
+    
+    func stopZombieAnimation() {
+        zombie.removeAction(forKey: "animation")
+    }
 
     
     
     //overrides
     override init(size: CGSize) {
+        
+        
         let maxAspectRatio:CGFloat = 2.16 // max aspect ratio
         let playableHeight = size.width / maxAspectRatio // playable heiht is height of scene / max aspect ration
         let playableMargin = (size.height-playableHeight)/2.0 // want the margin so subtract playable height from scene height
         playableRect = CGRect(x: 0, y: playableMargin,
                               width: size.width,
                               height: playableHeight) // make the playable rectangle
+        var textures: [SKTexture] = []
+        for i in 1...4 {
+            textures.append(SKTexture(imageNamed: "zombie\(i)"))
+        }
+            textures.append(textures[2])
+            textures.append(textures[1])
+        
+        zombieAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+            
+    
         super.init(size: size) // call initilizer of super class
       }
 
@@ -119,6 +142,7 @@ class GameScene: SKScene {
         //add nodes
         addChild(background)
         addChild(zombie)
+        //zombie.run(SKAction.repeatForever(zombieAnimation))
         
         debugDrawPlayableArea()
         
@@ -141,6 +165,7 @@ class GameScene: SKScene {
             if diff.length() <= zombieMovePointsPerSec * CGFloat(dt) {
                 zombie.position = lastTouchLocation
                 velocity = CGPoint.zero
+                stopZombieAnimation()
             }
             else {
                 move(sprite: zombie, velocity: velocity)
