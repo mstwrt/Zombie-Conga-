@@ -1,6 +1,9 @@
 //
 //  GameViewController.swift
 //  Zombie Conga!
+// this code was used from the book 2D Apple Games by Tutorials published by raywenderlich.com 2017
+//
+
 //
 //  Created by Marcus on 2021-04-19.
 //

@@ -23,7 +23,7 @@ class GameScene: SKScene {
     private func move(sprite: SKSpriteNode, velocity: CGPoint) {
         //move sprite points/sec X fraction of seconds since last update, the vector
         let amountToMove = velocity * CGFloat(dt)
-        print("AMount to move: \(amountToMove)")
+        //print("AMount to move: \(amountToMove)")
         //add vector to sprites new position
         sprite.position += amountToMove
     }
@@ -73,6 +73,21 @@ class GameScene: SKScene {
         let amountToRotate = min(rotateRadiaNSPERSEC * CGFloat(dt), abs(shortest))
         sprite.zRotation += shortest.sign() * amountToRotate
     }
+    
+    func spawnEnemy() {
+        let enemy = SKSpriteNode(imageNamed: "enemy")
+        enemy.position = CGPoint(x: size.width + enemy.size.width/2, y: size.height/2)
+        addChild(enemy)
+        
+        let actionMidMove = SKAction.move(to: CGPoint(x: size.width/2, y: playableRect.minX + enemy.size.height/2), duration: 1.0)
+        let actionMove = SKAction.move(to: CGPoint(x: -enemy.size.width/2, y: enemy.position.y), duration: 1.0)
+        let wait = SKAction.wait(forDuration: 0.25)
+        let logMessage = SKAction.run() {print("Reached Bottom!")
+        }
+        let sequence = SKAction.sequence([actionMidMove, logMessage, wait, actionMove])
+        enemy.run(sequence)
+    }
+    
 
     
     
@@ -121,7 +136,7 @@ class GameScene: SKScene {
             dt = 0
         }
         lastUpdateTime = currentTime
-        print("\(dt*1000) milliseconds since last update)")
+        //print("\(dt*1000) milliseconds since last update)")
         
         if let lastTouchLocation = lastTouchLocation {
             let diff = lastTouchLocation - zombie.position
@@ -140,18 +155,6 @@ class GameScene: SKScene {
         boundsCheckZombie()
     }
     
-    func spawnEnemy() {
-        let enemy = SKSpriteNode(imageNamed: "enemy")
-        enemy.position = CGPoint(x: size.width + enemy.size.width/2, y: size.height/2)
-        addChild(enemy)
-        
-        let actionMidMove = SKAction.move(to: CGPoint(x: size.width/2, y: playableRect.minX + enemy.size.height/2), duration: 1.0)
-        let actionMove = SKAction.move(to: CGPoint(x: -enemy.size.width/2, y: enemy.position.y), duration: 1.0)
-        let sequence = SKAction.sequence([actionMidMove, actionMove])
-        enemy.run(sequence)
-    }
-    
-    //overrides
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return}
