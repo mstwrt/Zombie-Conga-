@@ -108,6 +108,7 @@ class GameScene: SKScene {
         //add nodes
         addChild(background)
         addChild(zombie)
+        spawnEnemy()
         debugDrawPlayableArea()
         
     }
@@ -138,6 +139,17 @@ class GameScene: SKScene {
         
         boundsCheckZombie()
     }
+    
+    func spawnEnemy() {
+        let enemy = SKSpriteNode(imageNamed: "enemy")
+        enemy.position = CGPoint(x: size.width + enemy.size.width/2, y: size.height/2)
+        addChild(enemy)
+        
+        let actionMove = SKAction.move(to: CGPoint(x: -enemy.size.width/2, y: enemy.position.y), duration: 2.0)
+        enemy.run(actionMove)
+    }
+    
+    //overrides
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return}
