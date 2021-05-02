@@ -22,6 +22,8 @@ class GameScene: SKScene {
     let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed("hitCatLady.wav", waitForCompletion: false)
     var zombieIsInvincible = false
     let catMovePerSecond: CGFloat = 480.0
+    var zombieLives = 5
+    var gameOver = false
     
     
     
@@ -32,6 +34,28 @@ class GameScene: SKScene {
         //print("AMount to move: \(amountToMove)")
         //add vector to sprites new position
         sprite.position += amountToMove
+    }
+    
+    func loseCats() {
+        //trqck cats lost
+        var loseCount = 0
+        enumerateChildNodes(withName: "train") { node, stop in
+            //find random offset from cat's current position
+            var randomSpot = node.position
+            randomSpot.x += CGFloat.random(min: -100, max: 100)
+            randomSpot.y += CGFloat.random(min: -100, max: 100)
+            //move cat to random spot
+            node.name = ""
+            node.run(
+                SKAction.sequence([ SKAction.group([
+                SKAction.rotate(byAngle: π*4, duration: 1.0), SKAction.move(to: randomSpot, duration: 1.0), SKAction.scale(to: 0, duration: 1.0)
+                ]),SKAction.removeFromParent() ]))
+            //update cat's removed count
+            loseCount += 1
+            if loseCount >= 2 {
+                stop[0] = true
+            }
+        }
     }
     
     private func moveZombieToward(location: CGPoint) {
@@ -117,6 +141,8 @@ class GameScene: SKScene {
         
             zombie.run(SKAction.sequence([blinkAction, setHidden]))
             run(enemyCollisionSound)
+            loseCats()
+            zombieLives -= 1
         }
         
     }
@@ -131,9 +157,11 @@ class GameScene: SKScene {
         zombie.zPosition = 100
         
         run(catCollisionSound)
+        
     }
     
     func moveTrain() {
+        var trainCount = 0
         var targetPosition = zombie.position
         enumerateChildNodes(withName: "train") { node, stop in if !node.hasActions() {
             let actionDuration = 0.3
@@ -144,6 +172,12 @@ class GameScene: SKScene {
             let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
             node.run(moveAction) }
         targetPosition = node.position
+            trainCount += 1
+        }
+        
+        if trainCount >= 15 && !gameOver {
+            gameOver = true
+            print("You Win!")
         }
     }
     
@@ -283,6 +317,11 @@ class GameScene: SKScene {
         boundsCheckZombie()
         //checkCollisions()
         moveTrain()
+        
+        if zombieLives <= 0 && !gameOver {
+            gameOver = true
+            print("You Lose")
+        }
     } //end update
     
     override func didEvaluateActions() {
