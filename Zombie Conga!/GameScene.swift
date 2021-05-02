@@ -178,7 +178,27 @@ class GameScene: SKScene {
         if trainCount >= 15 && !gameOver {
             gameOver = true
             print("You Win!")
+            gameOverTransition()
         }
+    }
+    
+    func gameOverTransition() {
+        //1
+        var gameOverScene: GameOverScene
+        if zombieLives <= 0 && gameOver {
+            gameOverScene = GameOverScene(size: size, won: false)
+        }
+        else {
+            gameOverScene = GameOverScene(size: size, won: true)
+        }
+        gameOverScene.scaleMode = scaleMode
+        //2
+        let revel = SKTransition.flipHorizontal(withDuration: 0.5)
+        //2.5
+        backgroundMusicPlayer.stop()
+        //3
+        view?.presentScene(gameOverScene, transition: revel)
+
     }
     
     func checkCollisions() {
@@ -282,10 +302,11 @@ class GameScene: SKScene {
         addChild(zombie)
         //zombie.run(SKAction.repeatForever(zombieAnimation))
         
-        debugDrawPlayableArea()
+        //debugDrawPlayableArea()
         //keep spawning catlady and cats
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run { [weak self] in self?.spawnEnemy()}, SKAction.wait(forDuration: 2.0)])))
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run() { [weak self] in self?.spawnCat()}, SKAction.wait(forDuration: 1.0)])))
+        playBackgroundMusic(filename: "backgroundMusic.mp3")
         
     }
     
@@ -321,6 +342,7 @@ class GameScene: SKScene {
         if zombieLives <= 0 && !gameOver {
             gameOver = true
             print("You Lose")
+            gameOverTransition()
         }
     } //end update
     
