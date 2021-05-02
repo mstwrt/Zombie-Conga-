@@ -92,6 +92,27 @@ class GameScene: SKScene {
         }
     }
     
+    func spawnCat() {
+        //create cat with random spawn spot
+        let cat = SKSpriteNode(imageNamed: "cat")
+        cat.position = CGPoint(x: CGFloat.random(min: playableRect.minX, max: playableRect.maxX), y: CGFloat.random(min: playableRect.minY, max: playableRect.maxY))
+        cat.setScale(0)
+        addChild(cat)
+        //scale cat to existence then out.
+        let appear = SKAction.scale(to: 1.0, duration: 0.5)
+        //let wait = SKAction.wait(forDuration: 5.0)
+        cat.zRotation = -π / 16.0
+        let leftWiggle = SKAction.rotate(byAngle: π/8.0, duration: 0.5)
+        let rightWiggle = leftWiggle.reversed()
+        let fullWiggle = SKAction.sequence([leftWiggle, rightWiggle])
+        let waitWiggle = SKAction.repeat(fullWiggle, count: 10)
+        let disappear = SKAction.scale(to: 0, duration: 0.5)
+        let removeFromParent = SKAction.removeFromParent()
+        let actions = [appear, waitWiggle, disappear, removeFromParent]
+        cat.run(SKAction.sequence(actions))
+        
+    }
+    
     func stopZombieAnimation() {
         zombie.removeAction(forKey: "animation")
     }
@@ -134,7 +155,6 @@ class GameScene: SKScene {
         background.position = CGPoint.zero
         background.zPosition = -1
         //set zombie
-        
         zombie.anchorPoint = CGPoint.zero
         zombie.zPosition = 1
         zombie.position = CGPoint(x: 400, y: 400)
@@ -145,8 +165,9 @@ class GameScene: SKScene {
         //zombie.run(SKAction.repeatForever(zombieAnimation))
         
         debugDrawPlayableArea()
-        
+        //keep spawning catlady and cats
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run { [weak self] in self?.spawnEnemy()}, SKAction.wait(forDuration: 2.0)])))
+        run(SKAction.repeatForever(SKAction.sequence([SKAction.run() { [weak self] in self?.spawnCat()}, SKAction.wait(forDuration: 1.0)])))
         
     }
     
