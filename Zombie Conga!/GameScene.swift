@@ -26,6 +26,11 @@ class GameScene: SKScene {
     var gameOver = false
     let cameraNode = SKCameraNode()
     let cameraMovePointPerSec: CGFloat = 200.0
+    var cameraRect: CGRect {
+        let x = cameraNode.position.x - size.width/2 + (size.width - playableRect.width)/2
+        let y = cameraNode.position.y - size.height/2 + (size.height - playableRect.height)/2
+        return CGRect(x: x, y: y, width: playableRect.width, height: playableRect.height)
+    }
     
     
     
@@ -262,6 +267,13 @@ class GameScene: SKScene {
         let backgroundVelocity = CGPoint(x: cameraMovePointPerSec, y: 0)
         let amountToMove = backgroundVelocity * CGFloat(dt)
         cameraNode.position += amountToMove
+        
+        enumerateChildNodes(withName: "background") { node, _ in
+            let background = node as! SKSpriteNode
+            if background.position.x + background.size.width < self.cameraRect.origin.x {
+                background.position = CGPoint(x: background.position.x + background.size.width*2, y: background.position.y)
+            }
+        }
     }
     
     func backgroundNode() -> SKSpriteNode{
@@ -323,16 +335,18 @@ class GameScene: SKScene {
 
     
     override func didMove(to view: SKView) {
-        print("in game before background set")
+        //print("in game before background set")
         backgroundColor = SKColor.black
         //set background sprirte
-        let background = backgroundNode()
-        background.anchorPoint = CGPoint.zero
-        background.position = CGPoint.zero
-        background.name = "background"
-        background.zPosition = -1
-        print("in game afer background set")
-        addChild(background)
+        for i in 0...1 {
+            let background = backgroundNode()
+            background.anchorPoint = CGPoint.zero
+            background.position = CGPoint(x: CGFloat(i)*background.size.width, y: 0)
+            background.name = "background"
+            background.zPosition = -1
+            addChild(background)
+        }
+       //addChild(background)
         //set zombie
         zombie.anchorPoint = CGPoint.zero
         zombie.zPosition = 1
