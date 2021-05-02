@@ -95,9 +95,11 @@ class GameScene: SKScene {
     
     func zombieHit(enemey: SKSpriteNode) {
         enemey.removeFromParent()
+        run(SKAction.playSoundFileNamed("hitCatLady.wav", waitForCompletion: false))
     }
     func zombieHit(cat: SKSpriteNode) {
         cat.removeFromParent()
+        run(SKAction.playSoundFileNamed("hitCat.wav", waitForCompletion: false))
     }
     
     func checkCollisions() {
@@ -234,8 +236,12 @@ class GameScene: SKScene {
         //rotate(sprite: zombie, direction: velocity)
         
         boundsCheckZombie()
-        checkCollisions()
+        //checkCollisions()
     } //end update
+    
+    override func didEvaluateActions() {
+        checkCollisions()
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
