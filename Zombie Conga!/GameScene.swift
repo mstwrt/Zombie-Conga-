@@ -24,6 +24,9 @@ class GameScene: SKScene {
     let catMovePerSecond: CGFloat = 480.0
     var zombieLives = 5
     var gameOver = false
+    let cameraNode = SKCameraNode()
+    let cameraMovePointPerSec: CGFloat = 200.0
+    
     
     
     
@@ -254,6 +257,40 @@ class GameScene: SKScene {
     func stopZombieAnimation() {
         zombie.removeAction(forKey: "animation")
     }
+    
+    func moveCamera() {
+        let backgroundVelocity = CGPoint(x: cameraMovePointPerSec, y: 0)
+        let amountToMove = backgroundVelocity * CGFloat(dt)
+        cameraNode.position += amountToMove
+    }
+    
+    func backgroundNode() -> SKSpriteNode{
+        // create background node
+        print("start background node")
+        let backgroudNode = SKSpriteNode()
+        backgroudNode.anchorPoint = CGPoint.zero
+        backgroudNode.name = "background"
+        print("background node created")
+        //add first background to background node
+        let background1 = SKSpriteNode(imageNamed: "background1")
+        background1.anchorPoint = CGPoint.zero
+        background1.position = CGPoint(x: 0, y: 0)
+        backgroudNode.addChild(background1)
+        print("first background added")
+        
+        //add second background next to first
+        let background2 = SKSpriteNode(imageNamed: "background2")
+        background2.anchorPoint = CGPoint.zero
+        background2.position = CGPoint(x: background1.size.width, y: 0)
+        backgroudNode.addChild(background2)
+        print("second background added")
+        
+        //set size of background node to the size of the two backgrounds
+        backgroudNode.size = CGSize(width: background1.size.width + background2.size.width, height: background1.size.height)
+        print("size of background set returning background")
+        
+        return backgroudNode
+    }
 
     
     
@@ -286,19 +323,23 @@ class GameScene: SKScene {
 
     
     override func didMove(to view: SKView) {
+        print("in game before background set")
         backgroundColor = SKColor.black
         //set background sprirte
-        let background = SKSpriteNode(imageNamed: "background1")
+        let background = backgroundNode()
         background.anchorPoint = CGPoint.zero
         background.position = CGPoint.zero
+        background.name = "background"
         background.zPosition = -1
+        print("in game afer background set")
+        addChild(background)
         //set zombie
         zombie.anchorPoint = CGPoint.zero
         zombie.zPosition = 1
         zombie.position = CGPoint(x: 400, y: 400)
         
         //add nodes
-        addChild(background)
+        //addChild(background)
         addChild(zombie)
         //zombie.run(SKAction.repeatForever(zombieAnimation))
         
@@ -307,8 +348,12 @@ class GameScene: SKScene {
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run { [weak self] in self?.spawnEnemy()}, SKAction.wait(forDuration: 2.0)])))
         run(SKAction.repeatForever(SKAction.sequence([SKAction.run() { [weak self] in self?.spawnCat()}, SKAction.wait(forDuration: 1.0)])))
         playBackgroundMusic(filename: "backgroundMusic.mp3")
+        addChild(cameraNode)
+        camera = cameraNode
+        cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-    }
+        
+    } //end didmovetp
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
@@ -338,6 +383,8 @@ class GameScene: SKScene {
         boundsCheckZombie()
         //checkCollisions()
         moveTrain()
+        moveCamera()
+        //print("Game update")
         
         if zombieLives <= 0 && !gameOver {
             gameOver = true
