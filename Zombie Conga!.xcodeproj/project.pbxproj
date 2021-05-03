@@ -24,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E0FCB4726405A57002F8A58 /* GLIMSTIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = GLIMSTIC.TTF; sourceTree = "<group>"; };
 		3E5E190C263F27F0000FC01C /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		3E5E190F263F3176000FC01C /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		3EBCDEA8263F03D700D6503D /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 				3ED30ACD262E26E100B2F898 /* Assets.xcassets */,
 				3ED30ACF262E26E100B2F898 /* Info.plist */,
 				3EBCDEA8263F03D700D6503D /* backgroundMusic.mp3 */,
+				3E0FCB4726405A57002F8A58 /* GLIMSTIC.TTF */,
 				3EBCDEAB263F03D800D6503D /* hitCat.wav */,
 				3EBCDEAA263F03D700D6503D /* hitCatLady.wav */,
 				3EBCDEA9263F03D700D6503D /* lose.wav */,
