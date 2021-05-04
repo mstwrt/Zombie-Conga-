@@ -382,9 +382,10 @@ class GameScene: SKScene {
         catsLabel.fontColor = SKColor.black
         catsLabel.fontSize = 100
         catsLabel.zPosition = 150
-        catsLabel.horizontalAlignmentMode = .right
+        catsLabel.horizontalAlignmentMode = .left
         catsLabel.verticalAlignmentMode = .bottom
-        catsLabel.position = CGPoint(x: -playableRect.size.width/2 + CGFloat(20), y: -playableRect.size.height/2 + CGFloat(20))
+        catsLabel.position = CGPoint(x: -playableRect.size.width/2 + CGFloat(1500), y: -playableRect.size.height/2 + CGFloat(20))
+        cameraNode.addChild(catsLabel)
         
         
         
